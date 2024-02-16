@@ -19,7 +19,7 @@ public class Substring {
             try {
                 System.out.print("[INPUT] Введите символьную строку: ");
                 String inputString = scanner.nextLine();
-                if (inputString.equals("exit")) {
+                if ("exit".equalsIgnoreCase(inputString)) {
                     System.out.println("[INFO] Программа завершена.");
                     break;
                 }
