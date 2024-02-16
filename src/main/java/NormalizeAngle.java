@@ -15,7 +15,7 @@ public class NormalizeAngle {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.print("Введите целочисленное значение угла: (для выхода введите любой символ): ");
+            System.out.print("Введите целочисленное значение угла (для выхода введите любой символ): ");
             try {
                 int number = scanner.nextInt();
                 normalize(number);
