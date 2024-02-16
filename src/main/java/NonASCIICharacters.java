@@ -15,14 +15,14 @@ public class NonASCIICharacters {
         System.out.println("[INFO] Введите символьную строку (для выхода введите exit)");
         while (true) {
             // Ввод текстовой строки
-            System.out.print("[INFO] Введите текстовую строку: ");
+            System.out.print("[INPUT] Введите текстовую строку: ");
             String inputString = scanner.nextLine();
             if ("exit".equalsIgnoreCase(inputString)) {
                 System.out.println("[INFO] Программа завершена.");
                 break;
             }
             // Вывод символов, не представленных в коде ASCII, и их значения в Юникоде
-            System.out.println("Символы, не представленные в коде ASCII, и их значения в Юникоде:");
+            System.out.println("Символы, не представленные в коде ASCII, и их значения в Юникоде.");
             printNonASCIICharacters(inputString);
         }
     }
