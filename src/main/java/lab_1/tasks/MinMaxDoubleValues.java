@@ -1,3 +1,5 @@
+package lab_1.tasks;
+
 public class MinMaxDoubleValues {
     public static void main(String[] args) {
         double smallestDouble = Math.nextUp(0.0); // Наименьшее положительное значение

@@ -1,3 +1,5 @@
+package lab_1.tasks;
+
 public class DoubleToIntConversion {
     public static void main(String[] args) {
         double bigDoubleValue = Integer.MAX_VALUE * 2.0;

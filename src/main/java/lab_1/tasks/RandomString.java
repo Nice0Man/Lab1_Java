@@ -1,3 +1,5 @@
+package lab_1.tasks;
+
 import java.util.Random;
 public class RandomString {
     private static long generateRandomLong() {

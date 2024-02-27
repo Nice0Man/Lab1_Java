@@ -1,3 +1,5 @@
+package lab_1.tasks;
+
 import java.security.InvalidParameterException;
 import java.util.Scanner;
 

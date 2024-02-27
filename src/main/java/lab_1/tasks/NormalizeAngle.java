@@ -1,3 +1,5 @@
+package lab_1.tasks;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import static java.lang.Math.floorMod;

@@ -1,3 +1,5 @@
+package lab_1.tasks;
+
 public class FinalTask {
     public static double average(double... values) {
         double sum = 0;
