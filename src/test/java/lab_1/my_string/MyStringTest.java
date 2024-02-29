@@ -1,74 +1,126 @@
 package lab_1.my_string;
 
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MyStringTest {
 
-    @org.junit.jupiter.api.Test
-    void getStringByteArray() {
+    @Test
+    void testGetStringByteArray() {
+        MyString myString = new MyString("Hello");
+        assertArrayEquals("Hello".getBytes(), myString.getStringByteArray());
     }
 
-    @org.junit.jupiter.api.Test
-    void setStringByteArray() {
-    }
-
-    @org.junit.jupiter.api.Test
+    @Test
     void testSetStringByteArray() {
+        MyString myString = new MyString();
+        myString.setStringByteArray("Test".getBytes());
+        assertArrayEquals("Test".getBytes(), myString.getStringByteArray());
     }
 
-    @org.junit.jupiter.api.Test
-    void length() {
+    @Test
+    void testSetStringByteArrayFromMyString() {
+        MyString sourceString = new MyString("Hello");
+        MyString myString = new MyString();
+        myString.setStringByteArray(sourceString);
+        assertArrayEquals("Hello".getBytes(), myString.getStringByteArray());
     }
 
-    @org.junit.jupiter.api.Test
-    void toByteArray() {
+    @Test
+    void testLength() {
+        MyString myString = new MyString("Hello");
+        assertEquals(5, myString.length());
     }
 
-    @org.junit.jupiter.api.Test
-    void isEmpty() {
+    @Test
+    void testToByteArray() {
+        MyString myString = new MyString("Hello");
+        assertArrayEquals("Hello".getBytes(), myString.toByteArray());
     }
 
-    @org.junit.jupiter.api.Test
-    void concat() {
+    @Test
+    void testIsEmpty() {
+        MyString emptyString = new MyString();
+        assertTrue(emptyString.isEmpty());
+
+        MyString nonEmptyString = new MyString("Hello");
+        assertFalse(nonEmptyString.isEmpty());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testConcat() {
+        MyString myString = new MyString("Hello");
+        myString.concat(" World");
+        assertEquals("Hello World", myString.toString());
     }
 
-    @org.junit.jupiter.api.Test
-    void join() {
+    @Test
+    void testConcatWithNull() {
+        MyString myString = new MyString("Hello");
+        assertThrows(NullPointerException.class, () -> myString.concat((MyString) null));
     }
 
-    @org.junit.jupiter.api.Test
-    void trim() {
+    @Test
+    void testConcatWithString() {
+        MyString myString = new MyString("Hello");
+        myString.concat(" World");
+        assertEquals("Hello World", myString.toString());
     }
 
-    @org.junit.jupiter.api.Test
-    void indexOf() {
+    @Test
+    void testJoin() {
+        MyString myString = new MyString();
+        myString.join("-", "Java", "is", "awesome");
+        assertEquals("Java-is-awesome", myString.toString());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
+    void testTrim() {
+        MyString myString = new MyString("   Hello, World!   ");
+        myString.trim();
+        assertEquals("Hello, World!", myString.toString());
+    }
+
+    @Test
     void testIndexOf() {
+        MyString myString = new MyString("Hello, World!");
+        assertEquals(7, myString.indexOf("World".getBytes()));
+        assertEquals(-1, myString.indexOf("Java".getBytes()));
     }
 
-    @org.junit.jupiter.api.Test
-    void substring() {
+    @Test
+    void testIndexOfWithOffset() {
+        MyString myString = new MyString("Hello, World!");
+        assertEquals(4, myString.indexOf('o', 0));
+        assertEquals(-1, myString.indexOf('H', 6));
+        assertThrows(IndexOutOfBoundsException.class,() -> {
+            myString.indexOf('o', 14);
+        });
     }
 
-    @org.junit.jupiter.api.Test
-    void split() {
+    @Test
+    void testSubstring() {
+        MyString myString = new MyString("Hello, World!");
+        assertEquals("World", myString.substring(7, 12).toString());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testSplit() {
+        MyString myString = new MyString("Java-is-awesome");
+        MyString[] splitArray = myString.split('-');
+        assertArrayEquals(new MyString[]{new MyString("Java"), new MyString("is"), new MyString("awesome")}, splitArray);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testToString() {
+        MyString myString = new MyString("Hello, World!");
+        assertEquals("Hello, World!", myString.toString());
     }
 
-    @org.junit.jupiter.api.Test
-    void includeSymbol() {
+    @Test
+    void testIncludeSymbol() {
+        MyString myString = new MyString("Hello, World!");
+        assertTrue(myString.includeSymbol('W'));
+        assertFalse(myString.includeSymbol('Z'));
     }
 }
