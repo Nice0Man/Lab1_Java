@@ -114,13 +114,73 @@ public final class MyString{
         }
         return -1; // Возвращаем -1, если подстрока не найдена
     }
-//    public MyString[] split(String regex) {
-//        ArrayList<MyString> tmp;
-//        for (int i = 0; i < this.length(); i++){
-//            MyString s = this;
-//
-//        }
-//    }
+    public int indexOf(char ch, int fromIndex) {
+        if (fromIndex < 0 || fromIndex >= this.length()) {
+            throw new IndexOutOfBoundsException("Invalid fromIndex");
+        }
+
+        for (int i = fromIndex; i < this.length(); i++) {
+            if (this.getStringByteArray()[i] == ch) {
+                return i; // Возвращаем индекс, если символ найден
+            }
+        }
+        return -1; // Возвращаем -1, если символ не найден после fromIndex
+    }
+
+    public MyString substring(int startIndex, int endIndex) {
+        if (startIndex < 0 || startIndex >= this.length() || endIndex < 0 || endIndex > this.length() || startIndex > endIndex) {
+            throw new IndexOutOfBoundsException("Invalid startIndex or endIndex");
+        }
+
+        int length = endIndex - startIndex;
+        byte[] substringBytes = new byte[length];
+        System.arraycopy(this.stringByteArray, startIndex, substringBytes, 0, length);
+
+        MyString substring = new MyString();
+        substring.setStringByteArray(substringBytes);
+        return substring;
+    }
+
+    public MyString[] split(char ch){
+        return split(ch, this.length());
+    }
+    public MyString[] split(char ch, int limit) {
+        int matchCount = 0;
+        int off = 0;
+        int next;
+        boolean limited = limit > 0;
+        ArrayList<MyString> list = new ArrayList<>();
+        while ((next = indexOf(ch, off)) != -1) {
+            if (!limited || matchCount < limit - 1) {
+                list.add(substring(off, next));
+                off = next + 1;
+                ++matchCount;
+            } else {    // last one
+                int last = length();
+                list.add(substring(off, last));
+                off = last;
+                ++matchCount;
+                break;
+            }
+        }
+        // If no match was found, return this
+        if (off == 0)
+            return new MyString[] {this};
+
+        // Add remaining segment
+        if (!limited || matchCount < limit)
+            list.add(substring(off, length()));
+
+        // Construct result
+        int resultSize = list.size();
+        if (limit == 0) {
+            while (resultSize > 0 && list.get(resultSize - 1).isEmpty()) {
+                resultSize--;
+            }
+        }
+        MyString[] result = new MyString[resultSize];
+        return list.subList(0, resultSize).toArray(result);
+    }
     @Override
     public String toString() {
         return new String(this.stringByteArray);
@@ -144,8 +204,9 @@ public final class MyString{
 
         customString.join("-","JavaScript", "for", "kids!");
         System.out.println("Joined String: " + customString);
-//        String[] splitArray = customString.split("-");
-//        System.out.println("Split String: " + Arrays.toString(splitArray));
+
+        MyString[] splitArray = customString.split('-');
+        System.out.println("Split String: " + Arrays.toString(splitArray));
 
         byte[] byteArray = customString.toByteArray();
         System.out.println("String to ByteArray: " + Arrays.toString(byteArray));
