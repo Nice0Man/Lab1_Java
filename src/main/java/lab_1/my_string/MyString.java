@@ -207,4 +207,14 @@ public final class MyString {
         }
         return false;
     }
+
+    //  Метод сравнения
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        MyString myString = (MyString) obj;
+        return Arrays.equals(stringByteArray, myString.stringByteArray);
+    }
+
 }
