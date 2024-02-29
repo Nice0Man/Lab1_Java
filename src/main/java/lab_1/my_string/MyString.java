@@ -1,47 +1,52 @@
 package lab_1.my_string;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public final class MyString{
+public final class MyString {
     private byte[] stringByteArray;
 
-    public byte[] getStringByteArray() {
-        return stringByteArray;
-    }
-    public void setStringByteArray(byte[] ba) {
-        this.stringByteArray = new byte[ba.length];
-        System.arraycopy(ba,0,this.stringByteArray,0 ,ba.length);
-    }
-    public void setStringByteArray(MyString s) {
-        this.stringByteArray = new byte[s.length()];
-        System.arraycopy(s.getStringByteArray(),0,this.stringByteArray,0 ,s.length());
-    }
+    // Конструкторы
     public MyString() {
         this.stringByteArray = new byte[0];
     }
+
     public MyString(String s) {
-        if (s == null){
+        if (s == null) {
             throw new NullPointerException("String is null!");
         }
         this.setStringByteArray(s.getBytes());
     }
-    public int length(){
-        if (this.stringByteArray == null){
-            throw new NullPointerException("Byte array is null!");
-        }
+
+    // Методы для работы с массивом байтов
+    public byte[] getStringByteArray() {
+        return stringByteArray;
+    }
+
+    public void setStringByteArray(byte[] ba) {
+        this.stringByteArray = Arrays.copyOf(ba, ba.length);
+    }
+
+    public void setStringByteArray(MyString s) {
+        this.stringByteArray = Arrays.copyOf(s.getStringByteArray(), s.length());
+    }
+
+    // Основные операции со строками
+    public int length() {
         return this.toByteArray().length;
     }
+
     public byte[] toByteArray() {
         return this.stringByteArray;
     }
-    public boolean isEmpty(){
+
+    public boolean isEmpty() {
         return this.stringByteArray.length == 0;
     }
-    public MyString concat(MyString s){
+
+    public MyString concat(MyString s) {
         if (s == null || s.isEmpty()) {
-            throw new NullPointerException("Cannot concatenate with a null string.");
+            throw new NullPointerException("Cannot concatenate with a null or empty string.");
         }
         byte[] thisBytes = this.toByteArray();
         byte[] otherBytes = s.toByteArray();
@@ -53,9 +58,10 @@ public final class MyString{
         this.setStringByteArray(resultBytes);
         return this;
     }
-    public MyString concat(String s){
+
+    public MyString concat(String s) {
         if (s == null || s.isEmpty()) {
-            throw new NullPointerException("Cannot concatenate with a null string.");
+            throw new NullPointerException("Cannot concatenate with a null or empty string.");
         }
         byte[] thisBytes = this.toByteArray();
         byte[] otherBytes = s.getBytes();
@@ -67,12 +73,13 @@ public final class MyString{
         this.setStringByteArray(resultBytes);
         return this;
     }
+
     public MyString join(String delimiter, String... strings) {
         MyString result = new MyString();
 
         for (int i = 0; i < strings.length; i++) {
             MyString tmpStr = new MyString(strings[i]);
-            if (!tmpStr.isEmpty()){
+            if (!tmpStr.isEmpty()) {
                 result.concat(tmpStr);
 
                 if (i < strings.length - 1 && strings[i + 1] != null && !strings[i + 1].isEmpty()) {
@@ -83,7 +90,8 @@ public final class MyString{
         this.setStringByteArray(result);
         return this;
     }
-    public MyString trim(){
+
+    public MyString trim() {
         int startIndex = 0;
         int endIndex = this.length();
         while (startIndex < endIndex && this.stringByteArray[startIndex] == ' ') {
@@ -93,12 +101,12 @@ public final class MyString{
             endIndex--;
         }
         int length = endIndex - startIndex;
-        byte[] tmpArray = new byte[length];
-        System.arraycopy(this.stringByteArray, startIndex, tmpArray, 0, length);
+        byte[] tmpArray = Arrays.copyOfRange(this.stringByteArray, startIndex, endIndex);
         this.setStringByteArray(tmpArray);
         return this;
     }
 
+    // Операции поиска и обработки символов
     public int indexOf(byte[] target) {
         for (int i = 0; i <= this.length() - target.length; i++) {
             boolean found = true;
@@ -114,6 +122,7 @@ public final class MyString{
         }
         return -1; // Возвращаем -1, если подстрока не найдена
     }
+
     public int indexOf(char ch, int fromIndex) {
         if (fromIndex < 0 || fromIndex >= this.length()) {
             throw new IndexOutOfBoundsException("Invalid fromIndex");
@@ -133,17 +142,18 @@ public final class MyString{
         }
 
         int length = endIndex - startIndex;
-        byte[] substringBytes = new byte[length];
-        System.arraycopy(this.stringByteArray, startIndex, substringBytes, 0, length);
+        byte[] substringBytes = Arrays.copyOfRange(this.stringByteArray, startIndex, endIndex);
 
         MyString substring = new MyString();
         substring.setStringByteArray(substringBytes);
         return substring;
     }
 
-    public MyString[] split(char ch){
+    // Операции разделения строки
+    public MyString[] split(char ch) {
         return split(ch, this.length());
     }
+
     public MyString[] split(char ch, int limit) {
         int matchCount = 0;
         int off = 0;
@@ -165,7 +175,7 @@ public final class MyString{
         }
         // If no match was found, return this
         if (off == 0)
-            return new MyString[] {this};
+            return new MyString[]{this};
 
         // Add remaining segment
         if (!limited || matchCount < limit)
@@ -181,37 +191,20 @@ public final class MyString{
         MyString[] result = new MyString[resultSize];
         return list.subList(0, resultSize).toArray(result);
     }
+
+    // Преобразование в строку
     @Override
     public String toString() {
         return new String(this.stringByteArray);
     }
+
+    // Проверка наличия символа в строке
     public boolean includeSymbol(char symbol) {
-        for (int i = 0; i < this.length(); i++){
-            if (this.getStringByteArray()[i] == symbol){
+        for (int i = 0; i < this.length(); i++) {
+            if (this.getStringByteArray()[i] == symbol) {
                 return true;
             }
         }
         return false;
-    }
-
-    public static void main(String[] args) {
-        MyString customString = new MyString("   Hello, World!   ");
-        System.out.println("New String: " + customString );
-        System.out.println("Trimmed String: |" + customString.trim() + "|");
-
-        customString.concat(" Java is awesome!");
-        System.out.println("Concatenated String: " + customString);
-
-        customString.join("-","JavaScript", "for", "kids!");
-        System.out.println("Joined String: " + customString);
-
-        MyString[] splitArray = customString.split('-');
-        System.out.println("Split String: " + Arrays.toString(splitArray));
-
-        byte[] byteArray = customString.toByteArray();
-        System.out.println("String to ByteArray: " + Arrays.toString(byteArray));
-
-        boolean includesSymbol = customString.includeSymbol('W');
-        System.out.println("Includes symbol 'W': " + includesSymbol);
     }
 }
