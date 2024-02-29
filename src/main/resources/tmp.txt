@@ -7,12 +7,14 @@
 
 Доп задача
 
-Создать класс со статик методами
-методы работы со строками CharArray
+Создать класс со статик методами                                                             +
+методы работы со строками CharArray                                                          +
 
-join trim split toByteArray includeSymbol
+join trim split toByteArray includeSymbol                                                    +
 
-можно ли записать в дабл значение больше чем lab_1.tasks.MaxValue
+можно ли записать в дабл значение больше чем lab_1.tasks.MaxValue                            +
+-- Answer Выведет "Infinity"
+
 unsigned short  в задаче 7
 
-12 задача написать свои два метода
+12 задача написать свои два метода                                                           +
