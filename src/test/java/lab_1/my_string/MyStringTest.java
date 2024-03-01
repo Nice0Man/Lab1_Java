@@ -15,9 +15,7 @@ class MyStringTest {
     void testSetStringByteArray() {
         MyString myString = new MyString();
         myString.setStringByteArray("Test".getBytes());
-        assertThrows(NullPointerException.class, ()-> {
-            myString.setStringByteArray((byte[]) null);
-        });
+        assertThrows(NullPointerException.class, ()-> myString.setStringByteArray((byte[]) null));
         assertArrayEquals("Test".getBytes(), myString.getStringByteArray());
     }
 
@@ -80,7 +78,7 @@ class MyStringTest {
     @Test
     void testTrim() {
         MyString myString = new MyString("   Hello, World!   ");
-        myString.trim();
+        myString = myString.trim();
         assertEquals("Hello, World!", myString.toString());
     }
 
@@ -96,9 +94,7 @@ class MyStringTest {
         MyString myString = new MyString("Hello, World!");
         assertEquals(4, myString.indexOf('o', 0));
         assertEquals(-1, myString.indexOf('H', 6));
-        assertThrows(IndexOutOfBoundsException.class,() -> {
-            myString.indexOf('o', 14);
-        });
+        assertThrows(IndexOutOfBoundsException.class,() -> myString.indexOf('o', 14));
     }
 
     @Test
