@@ -80,7 +80,7 @@ class MyStringTest {
     @Test
     void testTrim() {
         MyString myString = new MyString("   Hello, World!   ");
-        myString.trim();
+        myString = myString.trim();
         assertEquals("Hello, World!", myString.toString());
     }
 
