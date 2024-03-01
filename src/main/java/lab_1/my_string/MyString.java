@@ -11,6 +11,10 @@ public final class MyString {
         this.stringByteArray = new byte[0];
     }
 
+    public MyString(byte[] ba) {
+        this.setStringByteArray(ba);
+    }
+
     public MyString(String s) {
         if (s == null) {
             throw new NullPointerException("String is null!");
@@ -55,8 +59,7 @@ public final class MyString {
         System.arraycopy(thisBytes, 0, resultBytes, 0, thisBytes.length);
         System.arraycopy(otherBytes, 0, resultBytes, thisBytes.length, otherBytes.length);
 
-        this.setStringByteArray(resultBytes);
-        return this;
+        return new MyString(resultBytes);
     }
 
     public MyString concat(String s) {
@@ -70,8 +73,7 @@ public final class MyString {
         System.arraycopy(thisBytes, 0, resultBytes, 0, thisBytes.length);
         System.arraycopy(otherBytes, 0, resultBytes, thisBytes.length, otherBytes.length);
 
-        this.setStringByteArray(resultBytes);
-        return this;
+        return new MyString(resultBytes);
     }
 
     public MyString join(String delimiter, String... strings) {
@@ -80,15 +82,14 @@ public final class MyString {
         for (int i = 0; i < strings.length; i++) {
             MyString tmpStr = new MyString(strings[i]);
             if (!tmpStr.isEmpty()) {
-                result.concat(tmpStr);
+                result = result.concat(tmpStr);
 
                 if (i < strings.length - 1 && strings[i + 1] != null && !strings[i + 1].isEmpty()) {
-                    result.concat(delimiter);
+                    result = result.concat(delimiter);
                 }
             }
         }
-        this.setStringByteArray(result);
-        return this;
+        return result;
     }
 
     public MyString trim() {
@@ -100,10 +101,7 @@ public final class MyString {
         while (endIndex > startIndex && this.stringByteArray[endIndex - 1] == ' ') {
             endIndex--;
         }
-        int length = endIndex - startIndex;
-        byte[] tmpArray = Arrays.copyOfRange(this.stringByteArray, startIndex, endIndex);
-        this.setStringByteArray(tmpArray);
-        return this;
+        return new MyString(Arrays.copyOfRange(this.stringByteArray, startIndex, endIndex));
     }
 
     // Операции поиска и обработки символов
@@ -141,7 +139,6 @@ public final class MyString {
             throw new IndexOutOfBoundsException("Invalid startIndex or endIndex");
         }
 
-        int length = endIndex - startIndex;
         byte[] substringBytes = Arrays.copyOfRange(this.stringByteArray, startIndex, endIndex);
 
         MyString substring = new MyString();

@@ -50,7 +50,7 @@ class MyStringTest {
     @Test
     void testConcat() {
         MyString myString = new MyString("Hello");
-        myString.concat(" World");
+        myString = myString.concat(" World");
         assertEquals("Hello World", myString.toString());
     }
 
@@ -63,14 +63,14 @@ class MyStringTest {
     @Test
     void testConcatWithString() {
         MyString myString = new MyString("Hello");
-        myString.concat(" World");
+        myString = myString.concat(" World");
         assertEquals("Hello World", myString.toString());
     }
 
     @Test
     void testJoin() {
         MyString myString = new MyString();
-        myString.join("-", "Java", "is", "awesome");
+        myString = myString.join("-", "Java", "is", "awesome");
         assertEquals("Java-is-awesome", myString.toString());
     }
 
