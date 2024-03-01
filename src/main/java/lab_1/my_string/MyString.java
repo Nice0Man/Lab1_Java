@@ -28,6 +28,9 @@ public final class MyString {
     }
 
     public void setStringByteArray(byte[] ba) {
+        if (ba == null) {
+            throw new NullPointerException("Byte Array is null!");
+        }
         this.stringByteArray = Arrays.copyOf(ba, ba.length);
     }
 

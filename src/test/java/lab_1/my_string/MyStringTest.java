@@ -15,6 +15,9 @@ class MyStringTest {
     void testSetStringByteArray() {
         MyString myString = new MyString();
         myString.setStringByteArray("Test".getBytes());
+        assertThrows(NullPointerException.class, ()-> {
+            myString.setStringByteArray((byte[]) null);
+        });
         assertArrayEquals("Test".getBytes(), myString.getStringByteArray());
     }
 
