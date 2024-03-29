@@ -11,13 +11,13 @@ class MyStringTest {
         assertArrayEquals("Hello".getBytes(), myString.getStringByteArray());
     }
 
-    @Test
-    void testSetStringByteArray() {
-        MyString myString = new MyString();
-        myString.setStringByteArray("Test".getBytes());
-        assertThrows(NullPointerException.class, ()-> myString.setStringByteArray((byte[]) null));
-        assertArrayEquals("Test".getBytes(), myString.getStringByteArray());
-    }
+//    @Test
+//    void testSetStringByteArray() {
+//        MyString myString = new MyString();
+//        myString.setStringByteArray("Test".getBytes());
+//        assertThrows(NullPointerException.class, ()-> myString.setStringByteArray((byte[]) null));
+//        assertArrayEquals("Test".getBytes(), myString.getStringByteArray());
+//    }
 
     @Test
     void testSetStringByteArrayFromMyString() {
@@ -76,10 +76,12 @@ class MyStringTest {
     }
 
     @Test
-    void testTrim() {
+    void test_trim() {
         MyString myString = new MyString("   Hello, World!   ");
         myString = myString.trim();
         assertEquals("Hello, World!", myString.toString());
+        assertEquals("",new MyString("       ").trim().toString());
+        assertEquals("",new MyString().trim().toString());
     }
 
     @Test

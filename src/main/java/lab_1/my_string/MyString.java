@@ -65,7 +65,7 @@ public final class MyString {
      * @param ba Массив байтов, используемый для установки новой последовательности байтов.
      * @throws NullPointerException если переданный массив байтов равен null.
      */
-    public void setStringByteArray(byte[] ba) {
+    private void setStringByteArray(byte[] ba) {
         if (ba == null) {
             throw new NullPointerException("Byte Array is null!");
         }
@@ -249,9 +249,7 @@ public final class MyString {
 
         byte[] substringBytes = Arrays.copyOfRange(this.stringByteArray, startIndex, endIndex);
 
-        MyString substring = new MyString();
-        substring.setStringByteArray(substringBytes);
-        return substring;
+        return new MyString(substringBytes);
     }
 
     /**
@@ -346,5 +344,10 @@ public final class MyString {
         if (obj == null || getClass() != obj.getClass()) return false;
         MyString myString = (MyString) obj;
         return Arrays.equals(stringByteArray, myString.stringByteArray);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(stringByteArray);
     }
 }
